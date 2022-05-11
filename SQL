@@ -1,0 +1,240 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : mer. 11 mai 2022 à 14:29
+-- Version du serveur : 10.4.22-MariaDB
+-- Version de PHP : 8.1.0
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `tz20`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `catégorie_produit`
+--
+
+CREATE TABLE `catégorie_produit` (
+  `ID_produit` int(255) NOT NULL,
+  `ID_nom_catégorie` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commande`
+--
+
+CREATE TABLE `commande` (
+  `ID_commande` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `ID_utilisateur` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `comp_commande`
+--
+
+CREATE TABLE `comp_commande` (
+  `ID_commande` int(11) NOT NULL,
+  `ID_produit` int(11) NOT NULL,
+  `prix_vente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nom_catégorie`
+--
+
+CREATE TABLE `nom_catégorie` (
+  `ID_nom_catégorie` int(255) NOT NULL,
+  `nom_catégorie` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pannier`
+--
+
+CREATE TABLE `pannier` (
+  `ID_utilisateur` int(11) NOT NULL,
+  `ID_produit` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `produit`
+--
+
+CREATE TABLE `produit` (
+  `ID_produit` int(100) NOT NULL,
+  `Nom` varchar(100) NOT NULL,
+  `Prix` int(255) NOT NULL,
+  `Image` int(255) NOT NULL,
+  `nb_stock` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `ID_utilisateur` int(11) NOT NULL,
+  `Nom` varchar(255) NOT NULL,
+  `Prénom` varchar(255) NOT NULL,
+  `Login` varchar(255) NOT NULL,
+  `Mot_de_passe` varchar(255) NOT NULL,
+  `Sate_inscription` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `catégorie_produit`
+--
+ALTER TABLE `catégorie_produit`
+  ADD PRIMARY KEY (`ID_produit`),
+  ADD KEY `ID_nom_catégorie` (`ID_nom_catégorie`);
+
+--
+-- Index pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD PRIMARY KEY (`ID_commande`),
+  ADD KEY `ID_utilisateur` (`ID_utilisateur`);
+
+--
+-- Index pour la table `comp_commande`
+--
+ALTER TABLE `comp_commande`
+  ADD PRIMARY KEY (`ID_commande`),
+  ADD KEY `ID_produit` (`ID_produit`);
+
+--
+-- Index pour la table `nom_catégorie`
+--
+ALTER TABLE `nom_catégorie`
+  ADD PRIMARY KEY (`ID_nom_catégorie`);
+
+--
+-- Index pour la table `pannier`
+--
+ALTER TABLE `pannier`
+  ADD PRIMARY KEY (`ID_utilisateur`),
+  ADD KEY `ID_produit` (`ID_produit`);
+
+--
+-- Index pour la table `produit`
+--
+ALTER TABLE `produit`
+  ADD PRIMARY KEY (`ID_produit`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`ID_utilisateur`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `catégorie_produit`
+--
+ALTER TABLE `catégorie_produit`
+  MODIFY `ID_produit` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `ID_commande` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `comp_commande`
+--
+ALTER TABLE `comp_commande`
+  MODIFY `ID_commande` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `nom_catégorie`
+--
+ALTER TABLE `nom_catégorie`
+  MODIFY `ID_nom_catégorie` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `pannier`
+--
+ALTER TABLE `pannier`
+  MODIFY `ID_utilisateur` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `produit`
+--
+ALTER TABLE `produit`
+  MODIFY `ID_produit` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `ID_utilisateur` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `catégorie_produit`
+--
+ALTER TABLE `catégorie_produit`
+  ADD CONSTRAINT `catégorie_produit_ibfk_1` FOREIGN KEY (`ID_produit`) REFERENCES `produit` (`ID_produit`),
+  ADD CONSTRAINT `catégorie_produit_ibfk_2` FOREIGN KEY (`ID_nom_catégorie`) REFERENCES `nom_catégorie` (`ID_nom_catégorie`);
+
+--
+-- Contraintes pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`ID_utilisateur`) REFERENCES `utilisateur` (`ID_utilisateur`);
+
+--
+-- Contraintes pour la table `comp_commande`
+--
+ALTER TABLE `comp_commande`
+  ADD CONSTRAINT `comp_commande_ibfk_1` FOREIGN KEY (`ID_commande`) REFERENCES `commande` (`ID_commande`),
+  ADD CONSTRAINT `comp_commande_ibfk_2` FOREIGN KEY (`ID_produit`) REFERENCES `produit` (`ID_produit`);
+
+--
+-- Contraintes pour la table `pannier`
+--
+ALTER TABLE `pannier`
+  ADD CONSTRAINT `pannier_ibfk_1` FOREIGN KEY (`ID_utilisateur`) REFERENCES `utilisateur` (`ID_utilisateur`),
+  ADD CONSTRAINT `pannier_ibfk_2` FOREIGN KEY (`ID_produit`) REFERENCES `produit` (`ID_produit`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
