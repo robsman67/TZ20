@@ -32,7 +32,6 @@ if($login && $password){
     $userexiste =$stmt ->rowCount();
 
     if ($userexiste == 1){
-        echo 'Bienvenu';
         $userinfo = $stmt ->fetch();
         $_SESSION['id'] = $userinfo ['id'];
         $_SESSION['pseudo'] = $userinfo ['login'];
@@ -41,10 +40,10 @@ if($login && $password){
         
         
     }else {
-        echo 'login ou mdp incorecte';
+        $erreur ='login ou mdp incorecte';
     }
     
-} else echo 'remplir le formulaire svp';
+} else $erreur ='remplir le formulaire svp';
 }
 
 ?>
@@ -54,18 +53,27 @@ if($login && $password){
     <form method="post" action ="">
         <table>
             <tr>
-                <td>Login:<input type="text" placeholder ="votre pseudo" name="pseudo" id="pseudo"/></td> <br>
+                <td align="center">Login:<input type="text" placeholder ="votre pseudo" name="pseudo" id="pseudo"/></td> <br>
             </tr>
             <tr>
-                <td>Mot de passe:<input type="password" placeholder ="votre mot de passe" name="password"/></td> <br>
+                <td align="center">Mot de passe:<input type="password" placeholder ="votre mot de passe" name="password"/></td> <br>
             </tr>
             <tr>
-                <td>Connexion:<input type="submit" name="connexion" /></td> <br>
+                <td align="center">Connexion:<input type="submit" name="connexion" /></td> <br>
+            </tr>
+            <tr>
+                <td> </td>
             </tr>
         </table>
         
     </form>
-    <a href="newuser.php"title="nouveau utilisateur"> Créez un compte </a>
+    <a href="newuser.php"title="nouveau utilisateur"> Créez un compte <br /> </a>
+    <?php 
+    if(isset($erreur)){
+        echo $erreur;
+    }
+    ?>
+
 </div>
     </body>
 </html>
