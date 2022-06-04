@@ -36,19 +36,17 @@ if($login && $password && $name && $firstname){
     if ($loginexist == 0){
         $connexion= $bdd-> prepare("INSERT INTO utilisateur (nom, prénom, login, password) 
         VALUES (?,?,?,?)");
-        $connexion->execute(array($login,$password,$name,$firstname));
-        header('Location: connectez.php');
-    }else echo 'ce pseudo existe deja';
-
-    
-
+        $connexion->execute(array($name, $firstname, $login, $password));
+        header("Location: connexion.php?)");
+    }else $erreur='ce pseudo existe deja';
    
-// date pas bonne, le reste marche
+// date pas bonne
+
+//je renvoie vers la page de connexion pour qu'il se connecte car sinon
+// j'arrive pas à recuperer les infos pour afficher ses infos dans connectez.php
 
 
-
-
-}else echo 'remplir le formulaire svp';
+}else $erreur='remplir le formulaire svp';
 
 
 }
@@ -62,12 +60,17 @@ if($login && $password && $name && $firstname){
         <tr><td>Prenom:<input type="text" placeholder ="votre prenom" name="prenom"/></td> </tr> <br>
         <tr><td>Pseudo:<input type="text" placeholder ="votre pseudo" name="pseudo"/></td> </tr><br>
         <tr><td>Mot de passe:<input type="password" placeholder ="votre mot de passe" name="password"/></td> </tr><br>
-        <tr><td>Connexion:<input type="submit" name="connexion" /></td> </tr><br>
+        <tr><td align="center"><input type="submit" name="connexion" value="Créez son compte"/></td> </tr><br>
 
         </table>
         
     </form>
-    <a href="index.php"title="nouveau utilisateur"> Se connecter </a>
+    <a href="connexion.php"title="nouveau utilisateur"> Se connecter <br></a>
+    <?php 
+    if(isset($erreur)){
+        echo $erreur;
+    }
+    ?>
 
     </div>
     </body>
