@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 24 mai 2022 à 16:19
+-- Généré le : dim. 12 juin 2022 à 11:49
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.0
 
@@ -92,9 +92,20 @@ INSERT INTO `nom_catégorie` (`ID_nom_categorie`, `nom_categorie`) VALUES
 --
 
 CREATE TABLE `pannier` (
-  `ID_utilisateur` int(11) NOT NULL,
-  `ID_produit` int(11) NOT NULL
+  `id_pannier` int(11) NOT NULL,
+  `ID_produit` int(11) NOT NULL,
+  `ID_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `pannier`
+--
+
+INSERT INTO `pannier` (`id_pannier`, `ID_produit`, `ID_utilisateur`) VALUES
+(1, 7, 38),
+(15, 8, 13),
+(16, 7, 13),
+(17, 7, 13);
 
 -- --------------------------------------------------------
 
@@ -106,7 +117,7 @@ CREATE TABLE `produit` (
   `id` int(100) NOT NULL,
   `Nom` varchar(100) NOT NULL,
   `Prix` int(255) NOT NULL,
-  `Image` int(255) NOT NULL,
+  `Image` varchar(1000) NOT NULL,
   `nb_stock` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -115,10 +126,10 @@ CREATE TABLE `produit` (
 --
 
 INSERT INTO `produit` (`id`, `Nom`, `Prix`, `Image`, `nb_stock`) VALUES
-(3, 'PS5', 500, 5, 0),
-(5, 'XBOX ', 500, 10, 1),
-(7, 'Elden ring', 50, 5, 500),
-(8, 'Gran Turismo 7', 50, 5, 5);
+(3, 'PS5', 500, '5', 0),
+(5, 'XBOX ', 500, '10', 1),
+(7, 'Elden ring', 50, '5', 500),
+(8, 'Gran Turismo 7', 60, '5', 5);
 
 -- --------------------------------------------------------
 
@@ -148,7 +159,13 @@ INSERT INTO `utilisateur` (`id`, `nom`, `prénom`, `login`, `password`, `date`) 
 (18, 'djdj', 'jffd', 'jd', 'jdj', '0000-00-00'),
 (19, 'jfj', 'jfjf', ',cfk', 'jfdjf', '0000-00-00'),
 (20, 'ooio', 'hjd', 'jej', 'jdj', '0000-00-00'),
-(21, 'ooio', 'ncn', 'jej', 'jdj', '0000-00-00');
+(21, 'ooio', 'ncn', 'jej', 'jdj', '0000-00-00'),
+(23, 'orioe&agrave;', 'eiei', 'jej', 'jeje', '0000-00-00'),
+(33, 'jfjfjf', 'fkfjjdf', 'jdjd', 'djdjdj', '0000-00-00'),
+(34, 'djekiero', 'ekiek', 'hdhd', 'dkdjj', '0000-00-00'),
+(35, 'kdkddk', 'dkdkid', ',dd,', 'kridk', '0000-00-00'),
+(36, 'dkdkdk', 'vvvcv', ',xc,d', 'd,d,k', '0000-00-00'),
+(38, 'ndd', 'djdj', 'robert', 'robert', '0000-00-00');
 
 --
 -- Index pour les tables déchargées
@@ -185,8 +202,9 @@ ALTER TABLE `nom_catégorie`
 -- Index pour la table `pannier`
 --
 ALTER TABLE `pannier`
-  ADD PRIMARY KEY (`ID_utilisateur`),
-  ADD KEY `ID_produit` (`ID_produit`);
+  ADD PRIMARY KEY (`id_pannier`),
+  ADD KEY `ID_produit` (`ID_produit`),
+  ADD KEY `ID_utilisateur` (`ID_utilisateur`);
 
 --
 -- Index pour la table `produit`
@@ -220,13 +238,13 @@ ALTER TABLE `comp_commande`
 -- AUTO_INCREMENT pour la table `nom_catégorie`
 --
 ALTER TABLE `nom_catégorie`
-  MODIFY `ID_nom_categorie` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_nom_categorie` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `pannier`
 --
 ALTER TABLE `pannier`
-  MODIFY `ID_utilisateur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pannier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `produit`
@@ -238,7 +256,7 @@ ALTER TABLE `produit`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Contraintes pour les tables déchargées
