@@ -6,7 +6,8 @@ session_start();
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Formulaire</title>
+    <title>Formulaire</title>    
+
 </head>
 <body>
 <?php
