@@ -35,7 +35,7 @@ if($login && $password){
         $userinfo = $stmt ->fetch();
         $_SESSION['id'] = $userinfo ['id'];
         $_SESSION['pseudo'] = $userinfo ['login'];
-        $_SESSION['password'] = $userinfo ['password'];
+    
         header("Location: connectez.php?id=".$_SESSION['id']);
         
         
