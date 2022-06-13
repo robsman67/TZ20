@@ -63,7 +63,6 @@ if($login && $password && $name && $firstname){
         <input type="text" placeholder ="Votre pseudo" name="pseudo"/>
         <input type="password" placeholder ="Votre mot de passe" name="password"/>
         <input type="submit" name="connexion" value="Créez son compte"/>
-        </table>
         
     </form>
     <a href="connexion.php"title="nouveau utilisateur"> Se connecter <br></a>
