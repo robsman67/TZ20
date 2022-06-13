@@ -21,43 +21,24 @@ session_start();
 	    }
     }
 
-    $bdd = get_db();
-        if(isset($_GET['id']) && $_GET['id'] == $_SESSION['id'] && $_GET['id'] > 0){
-            $getid = intval($_GET['id']);
-            $requser = $bdd -> prepare("SELECT * FROM utilisateur WHERE id = ?");
-            $requser-> execute(array($getid));
-            $userinfo = $requser->fetch(); 
-        }else header('Location: connexion.php');
-
-    function make_produits($categorie_id) {
-	    $bdd = get_db();
-	    if (is_null($bdd))
-		    return '';
-
-    $affichage =$bdd->prepare("SELECT Nom, id FROM produit INNER JOIN catégorie_produit ON ID_produit=id AND ID_nom_catégorie=?");
-		    $affichage->execute(array($categorie_id));
-		    $retour = '';
-	while (($line = $affichage->fetch()) == true){
-        $retour .= "<a href=\"produit.php?id=" . $line['id'] . "\">" . $line['Nom'] . "<br> </a>";
-    
-    }
-		
-	return $retour;
-    
-	}
-
-    function make_categories() {
-	    $bdd = get_db();
-	    if (is_null($bdd)){
-		    return '';
+    $dbb = get_db();
+    if($_GET['id'] > 0 ){
+        $affich = $dbb -> prepare("SELECT Nom, Prix FROM produit WHERE id = ?");
+        $affich -> execute(array($_GET['id']));
+        while (($lin = $affich->fetch()) == true){
+            $tabbleauproduit[0]= $lin['Nom'];
+            $tabbleauproduit[1]= $lin['Prix'];
+            
+           // echo $line['Nom']. "<br>";
+            //echo $line['Prix'] . "$";
         }
 
-	    $affichage = $bdd->prepare("select ID_nom_categorie, nom_categorie from nom_catégorie;");
-	    $affichage->execute();
-	    $retour = '';
-	    while (($line = $affichage->fetch(PDO::FETCH_NUM)) == true)
-		    $retour .= "<option value=\"$line[0]\">$line[1]</option>";
-	    return $retour;
+    }
+
+    $db = get_db();
+    if(isset($_POST['pannier'])){
+        $affi = $db -> prepare("INSERT INTO pannier (ID_produit, ID_utilisateur) VALUES (?,?)");
+        $affi->execute(array($_GET['id'], $_SESSION['id']));
     }
 
     $dd = get_db();
@@ -73,24 +54,54 @@ session_start();
         $tableauprix [$i] = $prix;
         $i = $i + 1;
        }
+       
    }
-        
+
+   $retou = '';
+   //$image='';
+   //$image .= "<img src = " .$_GET['id'] . "jpg>";
+   $retou .= "<a href=\"connectez.php?id=" . $_SESSION['id'] . "\"> Retournez à la page principal  <br> </a>";
+   //"<a href=\"connectez.php?id=" . $_SESSION['id'] . "\"> Retournez à la page principal  <br> </a>";
+   //$retour .= "<a href=\"produit.php?id=" . $line['id'] . "\">" . $line['Nom'] . "<br> </a>";
+   //echo $retou;
+  // $image .="<img src = \"PS5.jpg" "alt" ="Image de PS5" "title" ="La PS5">"";
+  
 
 ?>
 <div align="center">
-    <h2>Bienvenu <?php echo $userinfo['login']; ?></h2>
-<?php if (isset($_POST['catego'])) 
-	echo make_produits($_POST['catego']);
-?>
     <table>
     <form method="post" action ="">
-        <tr> <td><label for="catego">Liste de catégorie</td>  </tr></label> 
-        <tr> <td> <select name="catego" id="catego">
-	<?php echo make_categories();  ?>
         </select></td> </tr> <br> <br>
+        <h1><?php 
+        echo $tabbleauproduit[0] . " <br> <br>";
+        
+        //<img src = "PS5.jpg" alt ="Image de PS5" title ="La PS5">"";
+        if($_GET['id'] == 3){
+            ?>
+            <img src = "PS5.jpg" alt ="Image de PS5" title ="La PS5"> <br>
+            <?php
+        }
+        if($_GET['id'] == 5){
+            ?>
+            <img src = "XBOX.jpg" alt ="Image de Xbox serie X" title ="La XBOX"> <br>
+            <?php
+        }
+        if($_GET['id'] == 7){
+            ?>
+            <img src = "ELDEN_RING.jpg" alt ="ELDEN_RING" title ="ELDEN RING"> <br>
+            <?php
+        }
+        if($_GET['id'] == 8){
+            ?>
+            <img src = "GT7.jpg" alt ="Image de GT7" title ="La GT7"> <br>
+            <?php
+        }
+        echo $tabbleauproduit[1] . "$ <br>";
+        ?></h1>
         <tr> <td> <a href="deconnexion.php"> se deconnecter </a></td> </tr><br> <br>
-        <tr> <td><input type="submit" value="recherchez"/> </td> </tr> <br> <br>
-        <tr><td align="center"><input type="submit"  value ="Voir pannier" name="vpannier" /></td></tr> <br>
+        <tr> <td> <?php echo $retou  ?> </td> </tr><br>
+        <tr><td align="center"><input type="submit"  value ="Ajoutez au pannier" name="pannier" /></td></tr> <br>
+        <tr><td align="center"><input type="submit"  value ="Voir pannier" name="vpannier" /></td></tr> <br> <br>
         
     </form>
     </table>
