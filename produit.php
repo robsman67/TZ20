@@ -7,6 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8" />
     <title>Formulaire</title>
+    <link rel = "stylesheet" href = "style.css" />
 </head>
 <body>
 <?php
@@ -50,20 +51,18 @@ session_start();
         $tableau [$i] = $retour;
         $tableauprix [$i] = $prix;
         $i = $i + 1;
-       }
-       
+       }      
    }
-
    $retou = '';
    $retou .= "<a href=\"connectez.php?id=" . $_SESSION['id'] . "\"> Retournez à la page principal  <br> </a>";
 
 ?>
-<div align="center">
-    <table>
-    <form method="post" action ="">
-        </select></td> </tr> <br> <br>
+
+<section class="login">
+<div>   
+    <form method="post" action ="">        
         <h1><?php 
-        echo $tabbleauproduit[0] . " <br> <br>";
+        echo $tabbleauproduit[0] . "<br>";
         
         if($_GET['id'] == 3){
             ?>
@@ -82,21 +81,21 @@ session_start();
         }
         if($_GET['id'] == 8){
             ?>
-            <img src = "GT7.jpg" alt ="Image de GT7" title ="La GT7"> <br>
+            <img src = "GT7.jpg" alt ="Image de GT7" title ="GT7"> <br>
             <?php
         }
-        echo $tabbleauproduit[1] . "$ <br>";
+        echo $tabbleauproduit[1] . "$";
         ?></h1>
-        <tr> <td> <a href="deconnexion.php"> se deconnecter </a></td> </tr><br> <br>
-        <tr> <td> <?php echo $retou  ?> </td> </tr><br>
-        <tr><td align="center"><input type="submit"  value ="Ajoutez au pannier" name="pannier" /></td></tr> <br>
-        <tr><td align="center"><input type="submit"  value ="Voir pannier" name="vpannier" /></td></tr> <br> <br>
+        <p class="lien">
+        <?php echo $retou  ?></p>
+        <input type="submit"  value ="Ajoutez au pannier" name="pannier" />
+        <input type="submit"  value ="Voir pannier" name="vpannier" />
+        <p class="lien"> <a href="deconnexion.php"> Se déconnecter </a> </p> 
         
     </form>
-    </table>
-
+    
+<p class="produit">
 <?php 
-
 $j=0;
     while(isset($tableau) && $j < $i ){
         echo $tableau[$j];
@@ -104,7 +103,9 @@ $j=0;
         $j = $j +1;
     }
     ?>
+</p>
 
 </div>
+</section>
     </body>
 </html>
