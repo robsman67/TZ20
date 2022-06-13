@@ -28,9 +28,6 @@ session_start();
         while (($lin = $affich->fetch()) == true){
             $tabbleauproduit[0]= $lin['Nom'];
             $tabbleauproduit[1]= $lin['Prix'];
-            
-           // echo $line['Nom']. "<br>";
-            //echo $line['Prix'] . "$";
         }
 
     }
@@ -58,14 +55,7 @@ session_start();
    }
 
    $retou = '';
-   //$image='';
-   //$image .= "<img src = " .$_GET['id'] . "jpg>";
    $retou .= "<a href=\"connectez.php?id=" . $_SESSION['id'] . "\"> Retournez à la page principal  <br> </a>";
-   //"<a href=\"connectez.php?id=" . $_SESSION['id'] . "\"> Retournez à la page principal  <br> </a>";
-   //$retour .= "<a href=\"produit.php?id=" . $line['id'] . "\">" . $line['Nom'] . "<br> </a>";
-   //echo $retou;
-  // $image .="<img src = \"PS5.jpg" "alt" ="Image de PS5" "title" ="La PS5">"";
-  
 
 ?>
 <div align="center">
@@ -75,7 +65,6 @@ session_start();
         <h1><?php 
         echo $tabbleauproduit[0] . " <br> <br>";
         
-        //<img src = "PS5.jpg" alt ="Image de PS5" title ="La PS5">"";
         if($_GET['id'] == 3){
             ?>
             <img src = "PS5.jpg" alt ="Image de PS5" title ="La PS5"> <br>
@@ -114,7 +103,6 @@ $j=0;
         echo $tableauprix[$j];
         $j = $j +1;
     }
-
     ?>
 
 </div>
