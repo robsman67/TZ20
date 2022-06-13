@@ -55,7 +55,7 @@ if($login && $password && $name && $firstname){
 ?>
 <section class="login">
 <div>
-    <h2>S'Inscrire</h2>
+    <h1>S'inscrire</h1>
     <form method="post" action ="">
         
         <input type="text" placeholder ="Votre nom" name="nom"/>
