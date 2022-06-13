@@ -65,7 +65,7 @@ if($login && $password && $name && $firstname){
         <input type="submit" name="connexion" value="Créez son compte"/>
         
     </form>
-    <a href="connexion.php"title="nouveau utilisateur"> Se connecter <br></a>
+    <p class="lien"><a href="connexion.php"title="nouveau utilisateur"> Se connecter <br></a> </p>
     <p class="erreur">
     <?php 
     if(isset($erreur)){
