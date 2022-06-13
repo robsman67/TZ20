@@ -6,7 +6,8 @@ session_start();
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Formulaire</title>    
+    <title>Formulaire</title> 
+    <link rel = "stylesheet" href = "style.css" />   
 
 </head>
 <body>
@@ -52,27 +53,28 @@ if($login && $password && $name && $firstname){
 
 }
 ?>
-
-<div align="center">
+<section class="login">
+<div>
     <h2>S'Inscrire</h2>
     <form method="post" action ="">
-        <table>
-        <tr> <td>Nom:<input type="text" placeholder ="votre nom" name="nom"/> </td></tr><br>
-        <tr><td>Prenom:<input type="text" placeholder ="votre prenom" name="prenom"/></td> </tr> <br>
-        <tr><td>Pseudo:<input type="text" placeholder ="votre pseudo" name="pseudo"/></td> </tr><br>
-        <tr><td>Mot de passe:<input type="password" placeholder ="votre mot de passe" name="password"/></td> </tr><br>
-        <tr><td align="center"><input type="submit" name="connexion" value="Créez son compte"/></td> </tr><br>
-
+        
+        <input type="text" placeholder ="Votre nom" name="nom"/>
+        <input type="text" placeholder ="Votre prenom" name="prenom"/>
+        <input type="text" placeholder ="Votre pseudo" name="pseudo"/>
+        <input type="password" placeholder ="Votre mot de passe" name="password"/>
+        <input type="submit" name="connexion" value="Créez son compte"/>
         </table>
         
     </form>
     <a href="connexion.php"title="nouveau utilisateur"> Se connecter <br></a>
+    <p class="erreur">
     <?php 
     if(isset($erreur)){
         echo $erreur;
     }
     ?>
-
+    </p>
     </div>
+    </section>
     </body>
 </html>
