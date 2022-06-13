@@ -56,7 +56,7 @@ if($login && $password){
         <input type="submit" name="connexion" />
         
     </form>
-    <a href="newuser.php"title="nouveau utilisateur"> Créez un compte <br /> </a>
+    <p class="lien"><a href="newuser.php"title="nouveau utilisateur"> Créez un compte <br /> </a> </p>
     <p class="erreur">
     <?php 
     if(isset($erreur)){
