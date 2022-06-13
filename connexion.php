@@ -6,6 +6,7 @@ session_start();
 <head>
     <meta charset="utf-8" />
     <title>Formulaire</title>
+    <link rel = "stylesheet" href = "style.css" />
 </head>
 <body>
 <?php
@@ -19,7 +20,6 @@ try{
     }
 
 if(isset($_POST['connexion'])){
-
 
     $login=htmlentities(trim($_POST['pseudo']));  //hmtlentities pour sécurisé
     $password=htmlentities(trim($_POST['password']));
@@ -37,43 +37,35 @@ if($login && $password){
         $_SESSION['pseudo'] = $userinfo ['login'];
     
         header("Location: connectez.php?id=".$_SESSION['id']);
-        
-        
+
     }else {
-        $erreur ='login ou mdp incorecte';
+        $erreur ='Login ou mdp incorecte';
     }
     
-} else $erreur ='remplir le formulaire svp';
+} else $erreur ='Remplir le formulaire svp';
 }
-
 ?>
 
-<div align="center">
-    <h2>Se connectez</h2>
+<section class="login">
+<div>
+    <h2>Se connecter</h2>
     <form method="post" action ="">
-        <table>
-            <tr>
-                <td align="center">Login:<input type="text" placeholder ="votre pseudo" name="pseudo" id="pseudo"/></td> <br>
-            </tr>
-            <tr>
-                <td align="center">Mot de passe:<input type="password" placeholder ="votre mot de passe" name="password"/></td> <br>
-            </tr>
-            <tr>
-                <td align="center">Connexion:<input type="submit" name="connexion" /></td> <br>
-            </tr>
-            <tr>
-                <td> </td>
-            </tr>
-        </table>
+
+        <input type="text" placeholder ="Votre pseudo" name="pseudo" id="pseudo"/>
+        <input type="password" placeholder ="Votre mot de passe" name="password"/>
+        <input type="submit" name="connexion" />
         
     </form>
     <a href="newuser.php"title="nouveau utilisateur"> Créez un compte <br /> </a>
+    <p class="erreur">
     <?php 
     if(isset($erreur)){
         echo $erreur;
     }
     ?>
+    </p>
 
 </div>
+</section>
     </body>
 </html>
