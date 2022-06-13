@@ -7,6 +7,7 @@ session_start();
 <head>
     <meta charset="utf-8" />
     <title>Formulaire</title>
+    <link rel = "stylesheet" href = "style.css" />
 </head>
 <body>
 <?php
@@ -38,12 +39,10 @@ session_start();
 		    $affichage->execute(array($categorie_id));
 		    $retour = '';
 	while (($line = $affichage->fetch()) == true){
-        $retour .= "<a href=\"produit.php?id=" . $line['id'] . "\">" . $line['Nom'] . "<br> </a>";
+        $retour .= "<a href=\"produit.php?id=" . $line['id'] . "\">" . $line['Nom'] . "<br> </a> <br>";
     
     }
-		
-	return $retour;
-    
+	return $retour;    
 	}
 
     function make_categories() {
@@ -75,37 +74,37 @@ session_start();
        }
    }
         
-
 ?>
-<div align="center">
-    <h2>Bienvenu <?php echo $userinfo['login']; ?></h2>
+<section class="login">
+<div>
+    <h1>Bienvenu <?php echo $userinfo['login']; ?></h1>
+<p class="lien">
 <?php if (isset($_POST['catego'])) 
 	echo make_produits($_POST['catego']);
 ?>
-    <table>
+</p>
     <form method="post" action ="">
-        <tr> <td><label for="catego">Liste de catégorie</td>  </tr></label> 
-        <tr> <td> <select name="catego" id="catego">
+    <label for="catego">Liste de catégorie</label> <br>
+    <select name="catego" id="catego">
 	<?php echo make_categories();  ?>
-        </select></td> </tr> <br> <br>
-        <tr> <td> <a href="deconnexion.php"> se deconnecter </a></td> </tr><br> <br>
-        <tr> <td><input type="submit" value="recherchez"/> </td> </tr> <br> <br>
-        <tr><td align="center"><input type="submit"  value ="Voir pannier" name="vpannier" /></td></tr> <br>
-        
-    </form>
-    </table>
+    </select> <br>
+    <input type="submit" value="recherchez"/>
+    <input type="submit"  value ="Voir pannier" name="vpannier" />    
+    <p class="lien"> <a href="deconnexion.php"> Se déconnecter </a> </p>  
+    </form>    
 
+ <p class="produit">
 <?php 
-
 $j=0;
     while(isset($tableau) && $j < $i ){
         echo $tableau[$j];
         echo $tableauprix[$j];
         $j = $j +1;
     }
-
     ?>
 
+</p>
 </div>
+</section>
     </body>
 </html>
