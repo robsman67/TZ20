@@ -24,17 +24,22 @@ session_start();
 
     $dbb = get_db();
     if($_GET['id'] > 0 ){
-        $affich = $dbb -> prepare("SELECT Nom, Prix FROM produit WHERE id = ?");
+        $affich = $dbb -> prepare("SELECT Nom, Prix, nb_stock FROM produit WHERE id = ?");
         $affich -> execute(array($_GET['id']));
         while (($lin = $affich->fetch()) == true){
             $tabbleauproduit[0]= $lin['Nom'];
             $tabbleauproduit[1]= $lin['Prix'];
+            $tabbleauproduit[2] =$lin['nb_stock'];
         }
-
+        if($tabbleauproduit[2] <=0){
+            $erreur = 'Produit en rupture de stock';
+        }
     }
 
+    
+
     $db = get_db();
-    if(isset($_POST['pannier'])){
+    if(isset($_POST['pannier']) && $tabbleauproduit[2] >0){
         $affi = $db -> prepare("INSERT INTO pannier (ID_produit, ID_utilisateur) VALUES (?,?)");
         $affi->execute(array($_GET['id'], $_SESSION['id']));
     }
@@ -87,10 +92,15 @@ session_start();
         echo $tabbleauproduit[1] . "$";
         ?></h1>
         <p class="lien">
-        <?php echo $retou  ?></p>
+        <?php 
+        if(isset($erreur)){
+            echo $erreur ."<br>";
+        }
+        echo $retou;
+        ?> </p>
         <input type="submit"  value ="Ajoutez au pannier" name="pannier" />
         <input type="submit"  value ="Voir pannier" name="vpannier" />
-        <p class="lien"> <a href="deconnexion.php"> Se déconnecter </a> </p> 
+        <p class="lien"> <a href="deconnexion.php"> Se déconnecter </a> </p>
         
     </form>
     
